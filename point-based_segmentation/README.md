@@ -1,5 +1,5 @@
 # 📌 README.md
-# Point-based Segmentation with SAM
+## Point-based Segmentation with SAM
 
 This project demonstrates **point-based image segmentation** using the Segment Anything Model (SAM) with an interactive interface.
 
@@ -62,6 +62,8 @@ point-based_segmentation/
 pip install -r requirements.txt
 ```
 
+---
+
 ## 📥 Download Model
 ```bash
 python scripts/download_checkpoint.py
@@ -69,10 +71,14 @@ python scripts/download_checkpoint.py
 - No Hugging Face token required
 - Model is stored locally in checkpoints/
 
+---
+
 ## ▶️ How to Run (Interactive Mode)
 ```bash
 python -m src.interactive --config configs/default.yaml
 ```
+
+---
 
 ## 🖱️ Controls
 ```bash
@@ -85,6 +91,8 @@ Save results	s
 Exit	q
 ```
 
+---
+
 ## 🧠 How It Works
 Load SAM model <br>
 Load image <br>
@@ -93,6 +101,8 @@ Convert points → prompt format <br>
 Run SAM inference <br>
 Post-process mask <br>
 Visualize results <br>
+
+---
 
 ## 🔄 Pipeline
 ```mermaid
@@ -125,12 +135,13 @@ flowchart TD
     P --> R[Continue or exit]
     Q --> R
 ```
-    
+
+---
+
 ## 🖼️ Outputs
 
-Saved in data/output/:
-
-*_mask.png → binary mask <br>
-*_prompt.png → points visualization <br>
-*_overlay.png → segmentation overlay <br>
-*_panel.png → combined visualization <br>
+- Saved in data/output/:
+    - *_mask.png → binary mask <br>
+    - *_prompt.png → points visualization <br>
+    - *_overlay.png → segmentation overlay <br>
+    - *_panel.png → combined visualization <br>
