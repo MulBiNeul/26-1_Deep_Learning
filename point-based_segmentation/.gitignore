@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.env
+.venv/
+venv/
+
+data/output/*
+!data/output/.gitkeep
+
+checkpoints/*
+!checkpoints/.gitkeep

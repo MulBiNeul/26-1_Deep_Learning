@@ -1,0 +1,1 @@
+python -m src.main --config configs/default.yaml
