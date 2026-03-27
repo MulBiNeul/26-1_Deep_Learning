@@ -1,4 +1,4 @@
-📌 README.md
+# 📌 README.md
 # Point-based Segmentation with SAM
 
 This project demonstrates **point-based image segmentation** using the Segment Anything Model (SAM) with an interactive interface.
@@ -27,7 +27,7 @@ The model then generates a segmentation mask based on these prompts.
 
 ## 📂 Project Structure
 
-
+```bash
 point-based_segmentation/
 ├─ configs/
 │ └─ default.yaml
@@ -51,6 +51,7 @@ point-based_segmentation/
 │ └─ download_checkpoint.py
 ├─ requirements.txt
 └─ README.md
+```
 
 
 ---
@@ -59,13 +60,22 @@ point-based_segmentation/
 
 ```bash
 pip install -r requirements.txt
-📥 Download Model
+```
+
+## 📥 Download Model
+```bash
 python scripts/download_checkpoint.py
-No Hugging Face token required
-Model is stored locally in checkpoints/
-▶️ How to Run (Interactive Mode)
+```
+- No Hugging Face token required
+- Model is stored locally in checkpoints/
+
+## ▶️ How to Run (Interactive Mode)
+```bash
 python -m src.interactive --config configs/default.yaml
-🖱️ Controls
+```
+
+## 🖱️ Controls
+```bash
 Action	Key / Mouse
 Add foreground point	Left click
 Add background point	Right click
@@ -73,15 +83,19 @@ Run segmentation	Enter
 Reset points	r
 Save results	s
 Exit	q
-🧠 How It Works
-Load SAM model
-Load image
-User clicks points
-Convert points → prompt format
-Run SAM inference
-Post-process mask
-Visualize results
-🔄 Pipeline
+```
+
+## 🧠 How It Works
+Load SAM model <br>
+Load image <br>
+User clicks points <br>
+Convert points → prompt format <br>
+Run SAM inference <br>
+Post-process mask <br>
+Visualize results <br>
+
+## 🔄 Pipeline
+```mermaid
 flowchart TD
     A[Start] --> B[Load config.yaml]
     B --> C[Load SAM model]
@@ -110,12 +124,13 @@ flowchart TD
 
     P --> R[Continue or exit]
     Q --> R
-
-🖼️ Outputs
+```
+    
+## 🖼️ Outputs
 
 Saved in data/output/:
 
-*_mask.png → binary mask
-*_prompt.png → points visualization
-*_overlay.png → segmentation overlay
-*_panel.png → combined visualization
+*_mask.png → binary mask <br>
+*_prompt.png → points visualization <br>
+*_overlay.png → segmentation overlay <br>
+*_panel.png → combined visualization <br>
