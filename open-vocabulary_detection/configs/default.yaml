@@ -1,0 +1,14 @@
+model:
+  model_id: "openmmlab-community/mm_grounding_dino_large_all"
+  device: "auto"
+
+input:
+  image_path: "data/input/sample.jpg"
+
+thresholds:
+  box_threshold: 0.30
+  text_threshold: 0.25
+
+output:
+  save_dir: "data/output"
+  save_image_name: "result.jpg"
