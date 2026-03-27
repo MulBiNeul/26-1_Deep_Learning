@@ -1,0 +1,11 @@
+torch
+torchvision
+transformers
+accelerate
+huggingface-hub
+safetensors
+pillow
+numpy
+matplotlib
+pyyaml
+opencv-python
