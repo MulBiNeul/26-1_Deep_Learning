@@ -27,7 +27,7 @@ The model then generates a segmentation mask based on these prompts.
 
 ## 📂 Project Structure
 
-
+```bash
 point-based_segmentation/
 ├─ configs/
 │ └─ default.yaml
@@ -51,6 +51,7 @@ point-based_segmentation/
 │ └─ download_checkpoint.py
 ├─ requirements.txt
 └─ README.md
+```
 
 
 ---
@@ -59,13 +60,22 @@ point-based_segmentation/
 
 ```bash
 pip install -r requirements.txt
+```
+
 📥 Download Model
+```bash
 python scripts/download_checkpoint.py
-No Hugging Face token required
-Model is stored locally in checkpoints/
+```
+- No Hugging Face token required
+- Model is stored locally in checkpoints/
+- 
 ▶️ How to Run (Interactive Mode)
+```bash
 python -m src.interactive --config configs/default.yaml
+```
+
 🖱️ Controls
+```bash
 Action	Key / Mouse
 Add foreground point	Left click
 Add background point	Right click
@@ -73,6 +83,8 @@ Run segmentation	Enter
 Reset points	r
 Save results	s
 Exit	q
+```
+
 🧠 How It Works
 Load SAM model
 Load image
@@ -81,7 +93,9 @@ Convert points → prompt format
 Run SAM inference
 Post-process mask
 Visualize results
+
 🔄 Pipeline
+```
 flowchart TD
     A[Start] --> B[Load config.yaml]
     B --> C[Load SAM model]
@@ -110,7 +124,8 @@ flowchart TD
 
     P --> R[Continue or exit]
     Q --> R
-
+```
+    
 🖼️ Outputs
 
 Saved in data/output/:
