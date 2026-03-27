@@ -43,10 +43,10 @@ point-based_segmentation/
 │ ├─ sam_wrapper/
 │ │ └─ load_model.py
 │ └─ utils/
-│ ├─ device.py
-│ ├─ image_io.py
-│ ├─ points.py
-│ └─ visualization.py
+│   ├─ device.py
+│   ├─ image_io.py
+│   ├─ points.py
+│   └─ visualization.py
 ├─ scripts/
 │ └─ download_checkpoint.py
 ├─ requirements.txt
