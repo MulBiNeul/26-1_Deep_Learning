@@ -247,4 +247,5 @@ if __name__ == "__main__":
     main()
 
 # run
+# conda activate point-based_segmentation
 # python -m src.interactive --config configs/default.yaml
