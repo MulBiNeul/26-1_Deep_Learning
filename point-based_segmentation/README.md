@@ -130,7 +130,7 @@ flowchart TD
 
 Saved in data/output/:
 
-*_mask.png → binary mask
-*_prompt.png → points visualization
-*_overlay.png → segmentation overlay
-*_panel.png → combined visualization
+*_mask.png → binary mask <br>
+*_prompt.png → points visualization <br>
+*_overlay.png → segmentation overlay <br>
+*_panel.png → combined visualization <br>
