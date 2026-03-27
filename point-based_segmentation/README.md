@@ -95,7 +95,7 @@ Post-process mask
 Visualize results
 
 🔄 Pipeline
-```
+```mermaid
 flowchart TD
     A[Start] --> B[Load config.yaml]
     B --> C[Load SAM model]
