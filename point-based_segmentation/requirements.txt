@@ -1,0 +1,8 @@
+torch
+torchvision
+transformers
+pillow
+numpy
+matplotlib
+pyyaml
+opencv-python
