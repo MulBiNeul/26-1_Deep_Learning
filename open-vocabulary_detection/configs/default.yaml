@@ -1,13 +1,14 @@
 model:
-  model_id: "openmmlab-community/mm_grounding_dino_large_all"
+  model_name: "owlv2"   # "owlv2" or "owlvit"
+  model_id: "google/owlv2-base-patch16"
   device: "auto"
 
 input:
   image_path: "data/input/sample.jpg"
 
 thresholds:
-  box_threshold: 0.30
-  text_threshold: 0.25
+  score_threshold: 0.18
+  nms_iou_threshold: 0.50
 
 output:
   save_dir: "data/output"

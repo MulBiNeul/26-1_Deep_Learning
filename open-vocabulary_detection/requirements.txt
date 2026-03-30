@@ -3,6 +3,7 @@ accelerate
 huggingface-hub
 safetensors
 
+torchvision
 pillow
 numpy
 matplotlib

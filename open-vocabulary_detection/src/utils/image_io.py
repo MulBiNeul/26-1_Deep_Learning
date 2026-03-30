@@ -16,7 +16,7 @@ def load_image(image_path: str) -> Image.Image:
     
     return Image.open(image_path).convert("RGB")
 
-def save_image(image, svae_dir: str, filename: str) -> str:
+def save_image(image: Image.Image, save_dir: str, filename: str) -> str:
     """
     Save PIL image into designated folder
 
@@ -34,8 +34,8 @@ def save_image(image, svae_dir: str, filename: str) -> str:
         str: final save path
     """
     # if folder does not exist
-    os.makedirs(svae_dir, exist_ok=True)
-    save_path = os.path.join(save_path, filename)
+    os.makedirs(save_dir, exist_ok=True)
+    save_path = os.path.join(save_dir, filename)
     image.save(save_path)
     print(f"saved image: {save_path}")
 

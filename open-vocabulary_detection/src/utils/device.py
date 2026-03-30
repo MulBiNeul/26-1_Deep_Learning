@@ -15,14 +15,20 @@ def select_device(device: str = "auto") -> str:
     Returns:
         str: Final device string to be used
     """
-    # Specific Case: User selected
     if device != "auto":
         return device
-    
-    # Following priority (CUDA > MPS > CPU)
-    if torch.cuda.is_available:
-        return "cuda"
+
+    cuda_built = torch.version.cuda is not None
+    cuda_available = torch.cuda.is_available()
+
+    if cuda_built and cuda_available:
+        try:
+            _ = torch.tensor([0.0]).to("cuda")
+            return "cuda"
+        except Exception:
+            pass
+
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
         return "mps"
-    
+
     return "cpu"

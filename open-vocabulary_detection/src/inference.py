@@ -1,83 +1,89 @@
 import torch
+from torchvision.ops import nms
 
 from src.utils.image_io import load_image
-from src.utils.text import build_text_prompt
+
 
 def run_inference(
-        model,
-        processor,
-        device: str,
-        image_path: str,
-        text_queries: list[str],
-        box_threshold: float = 0.30,
-        text_threshold: float = 0.25,
+    model,
+    processor,
+    device,
+    image_path,
+    text_queries,
+    score_threshold,
+    nms_iou_threshold,
 ):
     """
-    Execute the MM Grounding DINO inference
-    
-    Args:
-        model:
-            Hugging Face zero-shot object detection model
-        processor:
-            Hugging FAce processor
-        device (str):
-            "cuda", "mps", "cpu"
-        image_path (str):
-            path of image input
-        text_queries (list[str]):
-            example: ["pen", "laptop"]
-        box_threshold (float):
-            box confidence threshold
-        text_threshold (float):
-            text-matching threshold
-    
-    Returns:
-        tuple:
-            image (PIL.Image.Image): raw image
-            result (dict): detection result of first image
+    Run open-vocabulary detection with OWLv2 / OWL-ViT.
+
+    Steps:
+    1. Load image
+    2. Prepare text labels
+    3. Run model inference
+    4. Post-process predictions
+    5. Apply NMS
+    6. Return a visualization-friendly result dictionary
     """
     print(f"Loading image: {image_path}")
     image = load_image(image_path)
 
-    # Convert text prompt to input prompt for model
-    text_prompt = build_text_prompt(text_queries)
-    print(f"text prompt: {text_prompt}")
+    # OWLv2 expects batched text labels.
+    # Example: [["pen", "laptop"]]
+    text_labels = [text_queries]
+    print(f"Text labels: {text_labels}")
 
-    # Convert text and image to model input tensor using processor
-    input = processor(
+    inputs = processor(
+        text=text_labels,
         images=image,
-        text=text_prompt,
-        return_tensors="pt"
+        return_tensors="pt",
     )
 
-    # Move all generated tensors to the selected device
-    inputs = {k: v.to(device) for k, v in inputs.items()}
+    if hasattr(inputs, "to"):
+        inputs = inputs.to(device)
+    else:
+        inputs = {k: v.to(device) for k, v in inputs.items()}
 
     print("Running inference...")
 
-    # Gradient is not needed during inference
     with torch.no_grad():
         outputs = model(**inputs)
 
-    # model output box is generally regularization coordinate
-    # target size is needed for reverting real image size
-    # PIL image.size: (width, height) -> target_sizes: (height, width)
-    target_sizes = torch.tensor([image.size[::-1]], device=device)
+    # target_sizes expects (height, width)
+    target_sizes = torch.tensor([(image.height, image.width)], device=device)
 
-    # post-processing:
-    # converting regularization box to real pixel coordinate
-    # applying threshold
-    # mapping label
+    # OWLv2 official docs use post_process_grounded_object_detection
+    # and pass text_labels to recover string labels.
     results = processor.post_process_grounded_object_detection(
         outputs=outputs,
-        input_ids=inputs["input_ids"],
-        box_threshold=box_threshold,
-        text_threshold=text_threshold,
         target_sizes=target_sizes,
+        threshold=score_threshold,
+        text_labels=text_labels,
     )
 
     result = results[0]
 
-    print(f"Number of detections: {len(result.get('boxes', []))}")
+    boxes = result["boxes"]
+    scores = result["scores"]
+    text_label_names = result["text_labels"]
 
-    return image, result
+    print(f"Raw detections: {len(boxes)}")
+
+    # Apply NMS to reduce duplicate boxes
+    if len(boxes) > 0:
+        keep = nms(boxes, scores, nms_iou_threshold)
+
+        boxes = boxes[keep]
+        scores = scores[keep]
+
+        keep_list = keep.tolist() if hasattr(keep, "tolist") else list(keep)
+        text_label_names = [text_label_names[i] for i in keep_list]
+
+    filtered_result = {
+        "boxes": boxes,
+        "scores": scores,
+        "text_labels": text_label_names,
+    }
+
+    print(f"Detections after NMS: {len(filtered_result['boxes'])}")
+
+    return image, filtered_result

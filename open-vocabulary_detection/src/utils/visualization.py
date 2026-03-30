@@ -20,15 +20,19 @@ def draw_boxes(image, result):
     """
     draw = ImageDraw.Draw(image)
 
-    boxes = result.get(["boxes"], [])
-    scores = result.get(["scores"], [])
-    labels = result.get(["labels"], [])
+    boxes = result.get("boxes", [])
+    scores = result.get("scores", [])
+    text_labels = result.get("text_labels", [])
 
     # Traversal each detected object
-    for box, score, label in zip(boxes, scores, labels):
+    for box, score, label in zip(boxes, scores, text_labels):
         # tensor -> python value
         x1, y1, x2, y2 = [round(v, 2) for v in box.tolist()]
         score_value = float(score.item()) if hasattr(score, "item") else float(score)
+        
+        # draw text
+        # label could be criteria of Grounding DINO post-process result
+        label_text = str(label)
 
         # draw box
         draw.rectangle(
@@ -37,12 +41,8 @@ def draw_boxes(image, result):
             width=3,
         )
 
-        # draw text
-        # label could be criteria of Grounding DINO post-process result
-        label_text = str(label)
-
         # display the text on upper left of the box
-        draw.txt(
+        draw.text(
             (x1, max(0, y1- 12)),
             f"{label_text}: {score_value:.2f}",
             fill="red",
