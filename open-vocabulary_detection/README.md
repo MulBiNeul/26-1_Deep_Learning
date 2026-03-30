@@ -58,11 +58,27 @@ open-vocabulary_detection/
 ---
 
 ## Installation
+
+### Install PyTorch (GPU / CPU / MPS)
+#### Windows / Linux (CUDA 11.8 - GPU)
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+#### CPU Only
+```bash
+pip install torch torchvision torchaudio
+```
+#### macOS (Apple Silicon - MPS)
+```bash
+pip install torch torchvision
+```
+
+### Install requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-### Note
+#### Note
 PyTorch should be installed separately depending on your system environment (CUDA / MPS / CPU).
 
 ---
