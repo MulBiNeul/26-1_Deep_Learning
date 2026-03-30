@@ -1,0 +1,15 @@
+model:
+  model_name: "owlv2"   # "owlv2" or "owlvit"
+  model_id: "google/owlv2-base-patch16"
+  device: "auto"
+
+input:
+  image_path: "data/input/sample.jpg"
+
+thresholds:
+  score_threshold: 0.18
+  nms_iou_threshold: 0.50
+
+output:
+  save_dir: "data/output"
+  save_image_name: "result.jpg"
