@@ -18,23 +18,3 @@ def parse_text_queries(raw_text: str) -> list[str]:
         raise ValueError("No valid text queries were provided.")
     
     return queries
-
-def build_text_prompt(text_queries: list[str]) -> str:
-    """
-    Generating prompt
-
-    Example:
-        ["pen", "laptop"] -> "pen. laptop."
-
-    Args:
-        text_queries (list[str]): text query list to detect
-    
-    Returns:
-        str: prompt str for model input
-    """
-    cleaned = [q.strip() for q in text_queries if q.strip()]
-
-    if not cleaned:
-        raise ValueError("text_queries is empty.")
-    
-    return ". ".join(cleaned) + "."
