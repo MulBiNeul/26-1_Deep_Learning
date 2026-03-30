@@ -247,4 +247,5 @@ if __name__ == "__main__":
     main()
 
 # run
+# python scripts/download_checkpoint.py
 # python -m src.main --config configs/default.yaml
