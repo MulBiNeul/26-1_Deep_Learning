@@ -1,29 +1,7 @@
 import torch
-from PIL import Image
 
-def build_text_prompt(text_queries: list[str]) -> str:
-    """
-    Converts the list of queries entered by the user into a text prompt format suitable for inserting into Grounding DINO
-    
-    Example:
-        ["pen", "laptop"] -> "pen. laptop."
-
-    Args:
-        text_queries (list[str]): the list of queries which user wants to detect
-    
-    Returns:
-        str: Prompt input for Grounding DINO
-    """
-    # Remove blank + Remove vaccant str
-    cleaned_queries = [q.strip() for q in text_queries if q.strip()]
-
-    # Make exception if there isn't any query
-    if not cleaned_queries:
-        raise ValueError("Text query is empty. Please provice at least one query.")
-    
-    # Sentence input is general to Grounding DINO.
-    # Each query is connected by dot (.)
-    return ". ".join(cleaned_queries) + "."
+from src.utils.image_io import load_image
+from src.utils.text import build_text_prompt
 
 def run_inference(
         model,
@@ -59,9 +37,7 @@ def run_inference(
             result (dict): detection result of first image
     """
     print(f"Loading image: {image_path}")
-
-    # RGB unification
-    image = Image.open(image_path).convert("RGB")
+    image = load_image(image_path)
 
     # Convert text prompt to input prompt for model
     text_prompt = build_text_prompt(text_queries)
@@ -83,7 +59,7 @@ def run_inference(
     with torch.no_grad():
         outputs = model(**inputs)
 
-    # model output box is generally regularization coordinate,
+    # model output box is generally regularization coordinate
     # target size is needed for reverting real image size
     # PIL image.size: (width, height) -> target_sizes: (height, width)
     target_sizes = torch.tensor([image.size[::-1]], device=device)
@@ -102,6 +78,6 @@ def run_inference(
 
     result = results[0]
 
-    print(f"detection: {len(result['boxes'])}")
+    print(f"Number of detections: {len(result.get('boxes', []))}")
 
     return image, result

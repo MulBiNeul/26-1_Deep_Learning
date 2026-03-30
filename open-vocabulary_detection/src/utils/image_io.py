@@ -1,4 +1,20 @@
 import os
+from PIL import Image
+
+def load_image(image_path: str) -> Image.Image:
+    """
+    Load image and convert to RGB format
+
+    Args:
+        image_path (str): input image path
+    
+    Returns:
+        PIL.Image.Image: RGB image
+    """
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(f"Image not found: {image_path}")
+    
+    return Image.open(image_path).convert("RGB")
 
 def save_image(image, svae_dir: str, filename: str) -> str:
     """

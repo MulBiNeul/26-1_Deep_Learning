@@ -1,16 +1,8 @@
 import yaml
 
-def load_config(path: str) -> dict:
+def load_config(config_path: str) -> dict:
     """
-    Read YAML settings and convert to dict
-
-    Args:
-        path (str): YAML file path
-    
-    Returns:
-        dict: setting value dict
+    Read YAML setting file
     """
-    with open(path, "r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
-
-    return config
+    with open(config_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)

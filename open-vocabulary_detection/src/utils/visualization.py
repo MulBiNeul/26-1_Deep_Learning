@@ -1,4 +1,4 @@
-from PIL import ImageDraw
+from PIL import Image, ImageDraw
 
 def draw_boxes(image, result):
     """
@@ -20,15 +20,15 @@ def draw_boxes(image, result):
     """
     draw = ImageDraw.Draw(image)
 
-    boxes = result["boxes"]
-    scores = result["scores"]
-    labels = result["labels"]
+    boxes = result.get(["boxes"], [])
+    scores = result.get(["scores"], [])
+    labels = result.get(["labels"], [])
 
     # Traversal each detected object
     for box, score, label in zip(boxes, scores, labels):
         # tensor -> python value
         x1, y1, x2, y2 = [round(v, 2) for v in box.tolist()]
-        score_value = float(score.item())
+        score_value = float(score.item()) if hasattr(score, "item") else float(score)
 
         # draw box
         draw.rectangle(
@@ -39,9 +39,13 @@ def draw_boxes(image, result):
 
         # draw text
         # label could be criteria of Grounding DINO post-process result
-        text = f"{label}: {score_value:.2f}"
+        label_text = str(label)
 
         # display the text on upper left of the box
-        draw.txt((x1, y1), text, fill="red")
+        draw.txt(
+            (x1, max(0, y1- 12)),
+            f"{label_text}: {score_value:.2f}",
+            fill="red",
+        )
 
     return image

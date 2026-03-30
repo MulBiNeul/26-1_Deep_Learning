@@ -1,9 +1,8 @@
-torch
-torchvision
 transformers
 accelerate
 huggingface-hub
 safetensors
+
 pillow
 numpy
 matplotlib
