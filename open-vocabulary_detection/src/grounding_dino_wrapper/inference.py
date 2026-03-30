@@ -58,7 +58,50 @@ def run_inference(
             image (PIL.Image.Image): raw image
             result (dict): detection result of first image
     """
-    print(f"[INFO] loading image: {image_path}")
+    print(f"Loading image: {image_path}")
 
     # RGB unification
     image = Image.open(image_path).convert("RGB")
+
+    # Convert text prompt to input prompt for model
+    text_prompt = build_text_prompt(text_queries)
+    print(f"text prompt: {text_prompt}")
+
+    # Convert text and image to model input tensor using processor
+    input = processor(
+        images=image,
+        text=text_prompt,
+        return_tensors="pt"
+    )
+
+    # Move all generated tensors to the selected device
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+
+    print("Running inference...")
+
+    # Gradient is not needed during inference
+    with torch.no_grad():
+        outputs = model(**inputs)
+
+    # model output box is generally regularization coordinate,
+    # target size is needed for reverting real image size
+    # PIL image.size: (width, height) -> target_sizes: (height, width)
+    target_sizes = torch.tensor([image.size[::-1]], device=device)
+
+    # post-processing:
+    # converting regularization box to real pixel coordinate
+    # applying threshold
+    # mapping label
+    results = processor.post_process_grounded_object_detection(
+        outputs=outputs,
+        input_ids=inputs["input_ids"],
+        box_threshold=box_threshold,
+        text_threshold=text_threshold,
+        target_sizes=target_sizes,
+    )
+
+    result = results[0]
+
+    print(f"detection: {len(result['boxes'])}")
+
+    return image, result
