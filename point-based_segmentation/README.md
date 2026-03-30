@@ -1,4 +1,4 @@
-# 📌 README.md
+# README.md
 ## Point-based Segmentation with SAM
 
 This project demonstrates **point-based image segmentation** using the Segment Anything Model (SAM) with an interactive interface.
@@ -11,7 +11,7 @@ The model then generates a segmentation mask based on these prompts.
 
 ---
 
-## 🚀 Features
+## Features
 
 - SAM-based point prompt segmentation
 - Interactive mouse-based input (no manual coordinate typing)
@@ -25,7 +25,7 @@ The model then generates a segmentation mask based on these prompts.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 point-based_segmentation/
