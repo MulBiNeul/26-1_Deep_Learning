@@ -48,8 +48,8 @@ class GroudingDINOModel:
         self.model_id = model_id
         self.device = select_device(device)
 
-        print(f"[INFO] model_id: {self.model_id}")
-        print(f"[INFO] selected device: {self.device}")
+        print(f"model_id: {self.model_id}")
+        print(f"selected device: {self.device}")
 
         # AutoProcessor:
         # - Image Preprocessing
