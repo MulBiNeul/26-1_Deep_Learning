@@ -39,7 +39,6 @@ point-based_segmentation/
 │ ├─ main.py
 │ ├─ inference.py
 │ ├─ predictor.py
-│ ├─ interactive.py
 │ ├─ sam_wrapper/
 │ │ └─ load_model.py
 │ └─ utils/
@@ -56,7 +55,7 @@ point-based_segmentation/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ```bash
 pip install -r requirements.txt
@@ -64,7 +63,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📥 Download Model
+## Download Model
 ```bash
 python scripts/download_checkpoint.py
 ```
@@ -73,14 +72,14 @@ python scripts/download_checkpoint.py
 
 ---
 
-## ▶️ How to Run (Interactive Mode)
+## How to Run (Interactive Mode)
 ```bash
 python -m src.interactive --config configs/default.yaml
 ```
 
 ---
 
-## 🖱️ Controls
+## Controls
 ```bash
 Action	Key / Mouse
 Add foreground point	Left click
@@ -93,18 +92,7 @@ Exit	q
 
 ---
 
-## 🧠 How It Works
-Load SAM model <br>
-Load image <br>
-User clicks points <br>
-Convert points → prompt format <br>
-Run SAM inference <br>
-Post-process mask <br>
-Visualize results <br>
-
----
-
-## 🔄 Pipeline
+## Pipeline
 ```mermaid
 flowchart TD
     A[Start] --> B[Load config.yaml]
@@ -138,7 +126,7 @@ flowchart TD
 
 ---
 
-## 🖼️ Outputs
+## Outputs
 
 - Saved in data/output/:
     - *_mask.png → binary mask <br>
