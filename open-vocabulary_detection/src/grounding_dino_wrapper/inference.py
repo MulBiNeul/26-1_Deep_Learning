@@ -83,7 +83,25 @@ def run_inference(
     with torch.no_grad():
         outputs = model(**inputs)
 
-    # model output box is generally regularization coordination,
+    # model output box is generally regularization coordinate,
     # target size is needed for reverting real image size
     # PIL image.size: (width, height) -> target_sizes: (height, width)
     target_sizes = torch.tensor([image.size[::-1]], device=device)
+
+    # post-processing:
+    # converting regularization box to real pixel coordinate
+    # applying threshold
+    # mapping label
+    results = processor.post_process_grounded_object_detection(
+        outputs=outputs,
+        input_ids=inputs["input_ids"],
+        box_threshold=box_threshold,
+        text_threshold=text_threshold,
+        target_sizes=target_sizes,
+    )
+
+    result = results[0]
+
+    print(f"detection: {len(result['boxes'])}")
+
+    return image, result
