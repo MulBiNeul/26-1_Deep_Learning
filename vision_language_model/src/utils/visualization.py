@@ -41,3 +41,19 @@ class Visualizer:
         line_height = 30
         padding = 20
         box_height = line_height * len(lines) + padding
+
+        cv2.rectangle(img, (0, 0), (img.shape[1], box_height), (0, 0, 0), -1)
+
+        # Draw each wrapped line
+        y = 30
+        for line in lines:
+            cv2.putText(img, line, (10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, ), 2, cv2.LINE_AA,)
+            y += line_height
+        
+        cv2.imshow("VLM Result", img)
+        cv2.waitKey(1)
+
+    @staticmethod
+    def close() -> None:
+        """ Close the visualization window """
+        cv2.destroyAllWindows()
