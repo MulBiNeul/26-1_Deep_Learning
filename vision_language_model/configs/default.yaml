@@ -1,0 +1,16 @@
+model:
+  name: Qwen/Qwen2.5-VL-3B-Instruct
+
+runtime:
+  device: auto
+  max_new_tokens: 128
+  temperature: 0.7
+  top_p: 0.9
+
+input:
+  image_path: "data/images/sample.jpg"
+
+output:
+  save_text: true
+  output_path: data/output/result.txt
+  print_result: true
