@@ -54,3 +54,22 @@ class InferenceEngine:
             except ValueError as e:
                 print(f"[ERROR] {e}")
                 continue
+
+            answer = self.predictor.predict(
+                image=self.image,
+                question=normalized_question,
+                runtime_cfg=self.config["runtime"],
+            )
+
+            if self.config["output"]["print_result"]:
+                print("\n[Answer]")
+                print(answer)
+                print()
+
+            Visualizer.show_image_with_text(self.image, answer)
+
+            if self.config["output"]["save_text"]:
+                TextProcessor.save_text(
+                    text=answer,
+                    output_path=self.config["output"]["output_path"],
+                )
