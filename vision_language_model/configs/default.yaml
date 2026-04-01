@@ -1,0 +1,17 @@
+model:
+  name: Qwen/Qwen2-VL-2B-Instruct
+
+runtime:
+  device: auto
+  max_new_tokens: 64
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.9
+
+input:
+  image_path: "data/input/sample.jpg"
+
+output:
+  save_text: true
+  output_path: data/output/result.txt
+  print_result: true
