@@ -1,0 +1,85 @@
+# =========================
+# Python cache
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# Virtual environments
+# =========================
+.env
+.venv/
+venv/
+env/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Data (input/output)
+# =========================
+data/output/*
+!data/output/.gitkeep
+
+# input은 선택
+# 필요하면 아래 줄 유지
+# data/input/*
+
+# =========================
+# Checkpoints / Models
+# =========================
+checkpoints/*
+!checkpoints/.gitkeep
+
+# Hugging Face cache (중요)
+~/.cache/huggingface/
+.cache/huggingface/
+
+# =========================
+# Torch / model artifacts
+# =========================
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# =========================
+# Temporary / misc
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Build
+# =========================
+dist/
+build/
+*.egg-info/
+
+# =========================
+# Output files
+# =========================
+*.txt
+*.csv
+*.json

@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
+from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
 
 class QwenModelLoader:
     """ Load the Qwen vision-language model and processor """
@@ -25,13 +25,13 @@ class QwenModelLoader:
         processor = AutoProcessor.from_pretrained(self.model_name)
 
         if self.device in ["cuda", "mps"]:
-            model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+            model = Qwen2VLForConditionalGeneration.from_pretrained(
                 self.model_name,
-                torch.dtype(torch.float16),
+                torch_dtype=torch.float16,
                 device_map=None,
             )
         else:
-            model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+            model = Qwen2VLForConditionalGeneration.from_pretrained(
                 self.model_name,
                 torch_dtype=torch.float32,
                 device_map=None,

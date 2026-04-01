@@ -50,7 +50,7 @@ class InferenceEngine:
                 break
             
             try:
-                normalized_question = TextProcessor.normalize(question)
+                normalized_question = TextProcessor.normalize_question(question)
             except ValueError as e:
                 print(f"[ERROR] {e}")
                 continue

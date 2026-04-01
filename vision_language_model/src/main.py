@@ -5,7 +5,7 @@ def main():
     """
     Main entry point for the vision-language model inference program
     """
-    config = ConfigLoader("config/default.yaml").load()
+    config = ConfigLoader("configs/default.yaml").load()
     engine = InferenceEngine(config)
     engine.run()
 
