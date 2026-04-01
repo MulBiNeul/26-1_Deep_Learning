@@ -3,7 +3,6 @@ from src.qwen_wrapper.load_model import QwenModelLoader
 from src.utils.device import DeviceManager
 from src.utils.image_io import ImageLoader
 from src.utils.text import TextProcessor
-from src.utils.visualization import Visualizer
 
 class InferenceEngine:
     """ Coordinate the full vision-language inference pipeline """
@@ -45,7 +44,6 @@ class InferenceEngine:
             question = input("Question > ")
 
             if question.strip().lower() == "exit":
-                Visualizer.close()
                 print("Exiting the program...")
                 break
             
@@ -65,8 +63,6 @@ class InferenceEngine:
                 print("\n[Answer]")
                 print(answer)
                 print()
-
-            Visualizer.show_image_with_text(self.image, answer)
 
             if self.config["output"]["save_text"]:
                 TextProcessor.save_text(
