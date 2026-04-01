@@ -13,7 +13,7 @@ We cover:
 
 - Open-vocabulary object detection
 - Point-based image segmentation
-- Vision-language question answering (VQA)
+- Vision-language question answering
 
 Each task is implemented as a separate module with its own pipeline and README.
 
@@ -75,7 +75,7 @@ Answer questions about images using a multimodal large language model.
 
 ## Setup
 
-> Each subproject follows its own execution pipeline.
+Each subproject follows its own execution pipeline.
 
 ---
 
@@ -96,22 +96,6 @@ flowchart TD
 
 ---
 
-## Key Observations
-
-- **SAM**
-  → Highly sensitive to input points
-  → Interactive control is powerful but requires good prompts
-
-- **OWL-ViT**
-  → Flexible (no fixed classes)
-  → Struggles with small or ambiguous objects
-
-- **Qwen-VL**
-  → Strong reasoning ability
-  → Occasionally generates hallucinated answers
-
----
-
 ## Purpose
 
 This project focuses on:
@@ -121,8 +105,6 @@ This project focuses on:
   - Prompt-based vision (SAM)
   - Language-driven detection (OWL-ViT)
   - Multimodal reasoning (Qwen-VL)
-
-- Preparing for live demo scenarios using real images
 
 ---
 
