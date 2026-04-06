@@ -1,18 +1,72 @@
 # =========================
-# Python cache
+# Python
 # =========================
+# Python cache
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
 
-# =========================
 # Virtual environments
-# =========================
-.env
 .venv/
 venv/
 env/
+ENV/
+.env
+
+# =========================
+# PyTorch / Models / Checkpoints
+# =========================
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Hugging Face cache
+.cache/
+.huggingface/
+hf_cache/
+~/.cache/huggingface/
+
+# =========================
+# Data (keep structure only)
+# =========================
+data/input/*
+data/output/*
+
+# Keep folder structure
+!data/input/.gitkeep
+!data/output/.gitkeep
+
+# =========================
+# Logs / Outputs
+# =========================
+*.log
+logs/
+outputs/
+runs/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# VSCode
+# =========================
+.vscode/
+
+# =========================
+# PyCharm / JetBrains
+# =========================
+.idea/
 
 # =========================
 # OS files
@@ -21,65 +75,19 @@ env/
 Thumbs.db
 
 # =========================
-# IDE / Editor
-# =========================
-.vscode/
-.idea/
-
-# =========================
-# Logs
-# =========================
-*.log
-
-# =========================
-# Data (input/output)
-# =========================
-data/output/*
-!data/output/.gitkeep
-
-# input은 선택
-# 필요하면 아래 줄 유지
-# data/input/*
-
-# =========================
-# Checkpoints / Models
-# =========================
-checkpoints/*
-!checkpoints/.gitkeep
-
-# Hugging Face cache (중요)
-~/.cache/huggingface/
-.cache/huggingface/
-
-# =========================
-# Torch / model artifacts
-# =========================
-*.pt
-*.pth
-*.bin
-*.safetensors
-
-# =========================
-# Temporary / misc
+# Temporary files
 # =========================
 *.tmp
 *.temp
 
 # =========================
-# Jupyter
+# Environment variables
 # =========================
-.ipynb_checkpoints/
+.env
+.env.*
 
 # =========================
-# Build
+# Misc
 # =========================
-dist/
-build/
-*.egg-info/
-
-# =========================
-# Output files
-# =========================
-*.txt
-*.csv
-*.json
+*.bak
+*.swp
