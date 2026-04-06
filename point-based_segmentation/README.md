@@ -1,9 +1,11 @@
 # README.md
+
 ## Point-based Segmentation with SAM
 
 This project demonstrates **point-based image segmentation** using the Segment Anything Model (SAM) with an interactive interface.
 
 Users can click on an image to provide:
+
 - Foreground points (object)
 - Background points (non-object)
 
@@ -52,34 +54,63 @@ point-based_segmentation/
 └─ README.md
 ```
 
-
 ---
 
 ## Installation
+
+### Install PyTorch (GPU / CPU / MPS)
+
+#### Windows / Linux (CUDA 11.8 - GPU)
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+#### CPU Only
+
+```bash
+pip install torch torchvision torchaudio
+```
+
+#### macOS (Apple Silicon - MPS)
+
+```bash
+pip install torch torchvision
+```
+
+### Install requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
+#### Note
+
+PyTorch should be installed separately depending on your system environment (CUDA / MPS / CPU).
+
 ---
 
 ## Download Model
+
 ```bash
 python scripts/download_checkpoint.py
 ```
+
 - No Hugging Face token required
 - Model is stored locally in checkpoints/
 
 ---
 
 ## How to Run (Interactive Mode)
+
 ```bash
-python -m src.interactive --config configs/default.yaml
+python -m src.main --config configs/default.yaml
 ```
 
 ---
 
 ## Controls
+
 ```bash
 Action	Key / Mouse
 Add foreground point	Left click
@@ -93,6 +124,7 @@ Exit	q
 ---
 
 ## Pipeline
+
 ```mermaid
 flowchart TD
     A[Start] --> B[Load config.yaml]
@@ -129,7 +161,7 @@ flowchart TD
 ## Outputs
 
 - Saved in data/output/:
-    - *_mask.png → binary mask <br>
-    - *_prompt.png → points visualization <br>
-    - *_overlay.png → segmentation overlay <br>
-    - *_panel.png → combined visualization <br>
+  - \*\_mask.png → binary mask <br>
+  - \*\_prompt.png → points visualization <br>
+  - \*\_overlay.png → segmentation overlay <br>
+  - \*\_panel.png → combined visualization <br>
