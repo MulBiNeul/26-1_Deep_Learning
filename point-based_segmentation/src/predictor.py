@@ -17,7 +17,16 @@ def predict_mask(image, processor, model, device, points, labels):
     original_sizes = inputs["original_sizes"]
     reshaped_input_sizes = inputs["reshaped_input_sizes"]
 
-    inputs = {k: v.to(device) for k, v in inputs.items()}
+    converted_inputs = {}
+    for k, v in inputs.items():
+        if torch.is_tensor(v):
+            if v.dtype == torch.float64:
+                v = v.float()
+            converted_inputs[k] = v.to(device)
+        else:
+            converted_inputs[k] = v
+
+    inputs = converted_inputs
 
     with torch.no_grad():
         outputs = model(
