@@ -16,6 +16,35 @@ def load_image(image_path: str) -> Image.Image:
     
     return Image.open(image_path).convert("RGB")
 
+def resize_image(image: Image.Image, max_size: int = 1024) -> Image.Image:
+    """
+    Resize image while preserving aspect ratio.
+
+    Args:
+        image (PIL.Image): input image
+        max_size (int): maximum size for longer side
+
+    Returns:
+        resized PIL.Image
+    """
+    width, height = image.size
+
+    # If already small enough, return original
+    if max(width, height) <= max_size:
+        return image
+
+    scale = max_size / max(width, height)
+
+    new_width = int(width * scale)
+    new_height = int(height * scale)
+
+    resized = image.resize((new_width, new_height), Image.BILINEAR)
+
+    print(f"Image resized: ({width}, {height}) -> ({new_width}, {new_height})")
+
+    return resized
+
+
 def save_image(image: Image.Image, save_dir: str, filename: str) -> str:
     """
     Save PIL image into designated folder
