@@ -1,8 +1,9 @@
+# Supported VL Model
 model:
   name: Qwen/Qwen2-VL-2B-Instruct
 
 runtime:
-  device: auto
+  device: auto # device type: cuda, cpu, mps
   max_new_tokens: 64
   do_sample: true
   temperature: 0.7
