@@ -138,128 +138,83 @@ pen, laptop
 
 ## Code Overview
 
-### `src/main.py`
+### main.py
 
-Main entry point of the project.
+Controls the overall execution flow of the program.
 
-Responsibilities:
-
-- Load the YAML config file
-- Receive text queries from CLI or interactive input
-- Load the selected OWL-family model
-- Run inference
-- Visualize detection results
-- Save the final output image
+- Loads config file
+- Receives text queries
+- Loads model
+- Runs inference
+- Saves results
 
 ---
 
-### `src/inference.py`
+### inference.py
 
-Core inference pipeline for open-vocabulary detection.
+Performs open-vocabulary detection using OWL models.
 
-Responsibilities:
-
-- Load and optionally resize the input image
-- Prepare text labels for OWLv2 / OWL-ViT
-- Run model inference
-- Post-process model outputs
-- Apply Non-Maximum Suppression (NMS)
-- Return filtered detection results
+- Loads image
+- Encodes image and text
+- Runs model inference
+- Post-processes detection results
+- Applies NMS
 
 ---
 
-### `src/predictor.py`
+### predictor.py
 
-Handles user text input.
+Handles user input for text queries.
 
-Responsibilities:
-
-- Read text queries from the `--text` argument
-- Fall back to interactive input when no CLI query is given
-- Parse and normalize comma-separated text queries
+- Reads CLI input (`--text`)
+- Supports interactive input
+- Parses text into query list
 
 ---
 
-### `src/owl_wrapper/load_model.py`
+### owl_wrapper/load_model.py
 
-Loads the selected OWL-family model and processor.
+Loads OWLv2 or OWL-ViT model from Hugging Face.
 
-Responsibilities:
-
-- Select the correct model based on config
-- Load OWLv2 or OWL-ViT from Hugging Face
-- Move the model to the selected device
-- Set the model to evaluation mode
+- Selects model type
+- Loads processor and model
+- Moves model to device
 
 ---
 
-### `src/utils/config.py`
+### utils/config.py
 
-Utility for loading configuration files.
-
-Responsibilities:
-
-- Read `configs/default.yaml`
-- Return configuration values as a Python dictionary
+Loads YAML configuration file.
 
 ---
 
-### `src/utils/device.py`
+### utils/device.py
 
-Device selection utility.
-
-Responsibilities:
-
-- Automatically choose between CUDA, MPS, and CPU
-- Validate requested device settings
-- Provide safe fallback when a device is unavailable
+Selects the appropriate device (CUDA / MPS / CPU).
 
 ---
 
-### `src/utils/image_io.py`
+### utils/image_io.py
 
-Image input/output utility.
-
-Responsibilities:
-
-- Load input images
-- Resize large images while preserving aspect ratio
-- Save the final output image
+Handles image loading, resizing, and saving.
 
 ---
 
-### `src/utils/text.py`
+### utils/text.py
 
-Text preprocessing utility.
-
-Responsibilities:
-
-- Parse comma-separated query strings
-- Convert raw text input into a clean query list
+Parses and processes text queries.
 
 ---
 
-### `src/utils/visualization.py`
+### utils/visualization.py
 
-Visualization utility for detection outputs.
-
-Responsibilities:
-
-- Draw bounding boxes on the image
-- Render predicted text labels
-- Display confidence scores for each detection
+Draws bounding boxes and labels on the image.
 
 ---
 
-### `scripts/download_checkpoint.py`
+### scripts/download_checkpoint.py
 
-Utility script for downloading model checkpoints in advance.
-
-Responsibilities:
-
-- Load model information from config
-- Download the selected OWLv2 / OWL-ViT checkpoint
-- Cache the processor and model locally before inference
+Downloads and caches model checkpoints in advance.
 
 ---
 
