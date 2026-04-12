@@ -22,8 +22,18 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Open-vocabulary detection with OWL-ViT / OWLv2"
     )
-    parser.add_argument("--config", type=str, required=True)
-    parser.add_argument("--text", type=str, default=None)
+    parser.add_argument(
+        "--config",
+        type=str,
+        required=True,
+        help="Path to YAML config file",
+    )
+    parser.add_argument(
+        "--text",
+        type=str,
+        default=None,
+        help='Comma-separated text queries, e.g. "pen, laptop"',
+    )
     return parser.parse_args()
 
 
@@ -51,14 +61,15 @@ def main():
         text_queries=text_queries,
         score_threshold=cfg["thresholds"]["score_threshold"],
         nms_iou_threshold=cfg["thresholds"]["nms_iou_threshold"],
+        max_size=cfg["preprocess"]["max_size"],
     )
 
     # 5. Draw boxes
-    image = draw_boxes(image, result)
+    vis_image = draw_boxes(image, result)
 
     # 6. Save output
     save_image(
-        image=image,
+        image=vis_image,
         save_dir=cfg["output"]["save_dir"],
         filename=cfg["output"]["save_image_name"],
     )

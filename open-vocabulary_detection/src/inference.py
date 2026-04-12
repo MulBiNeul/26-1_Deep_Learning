@@ -1,7 +1,7 @@
 import torch
 from torchvision.ops import nms
 
-from src.utils.image_io import load_image
+from src.utils.image_io import load_image, resize_image
 
 
 def run_inference(
@@ -12,22 +12,27 @@ def run_inference(
     text_queries,
     score_threshold,
     nms_iou_threshold,
+    max_size=1024,
 ):
     """
     Run open-vocabulary detection with OWLv2 / OWL-ViT.
 
     Steps:
     1. Load image
-    2. Prepare text labels
-    3. Run model inference
-    4. Post-process predictions
-    5. Apply NMS
-    6. Return a visualization-friendly result dictionary
+    2. Optionally resize image while preserving aspect ratio
+    3. Prepare batched text labels
+    4. Run model inference
+    5. Post-process predictions
+    6. Apply NMS
+    7. Return a visualization-friendly result dictionary
     """
     print(f"Loading image: {image_path}")
     image = load_image(image_path)
 
-    # OWLv2 expects batched text labels.
+    # Resize large images to improve speed and stability.
+    image = resize_image(image, max_size=max_size)
+
+    # OWL-family models expect batched text labels.
     # Example: [["pen", "laptop"]]
     text_labels = [text_queries]
     print(f"Text labels: {text_labels}")
@@ -38,6 +43,7 @@ def run_inference(
         return_tensors="pt",
     )
 
+    # Move tensors to the selected device.
     if hasattr(inputs, "to"):
         inputs = inputs.to(device)
     else:
@@ -51,8 +57,13 @@ def run_inference(
     # target_sizes expects (height, width)
     target_sizes = torch.tensor([(image.height, image.width)], device=device)
 
-    # OWLv2 official docs use post_process_grounded_object_detection
-    # and pass text_labels to recover string labels.
+    # For OWLv2, Hugging Face docs use:
+    # processor.post_process_grounded_object_detection(
+    #     outputs=outputs,
+    #     target_sizes=target_sizes,
+    #     threshold=...,
+    #     text_labels=text_labels
+    # )
     results = processor.post_process_grounded_object_detection(
         outputs=outputs,
         target_sizes=target_sizes,
@@ -68,7 +79,7 @@ def run_inference(
 
     print(f"Raw detections: {len(boxes)}")
 
-    # Apply NMS to reduce duplicate boxes
+    # Apply NMS to reduce duplicate boxes.
     if len(boxes) > 0:
         keep = nms(boxes, scores, nms_iou_threshold)
 
