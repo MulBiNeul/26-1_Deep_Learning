@@ -131,8 +131,6 @@ Runs segmentation using predefined points from the configuration file.
 
 > The project provides both interactive and batch inference modes, enabling flexible experimentation and reproducible results.
 
-````
-
 ---
 
 ## Controls
@@ -145,7 +143,7 @@ Run segmentation	Enter
 Reset points	r
 Save results	s
 Exit	q
-````
+```
 
 ---
 
