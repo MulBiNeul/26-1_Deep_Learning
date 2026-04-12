@@ -127,8 +127,6 @@ Runs segmentation using predefined points from the configuration file.
 - Points must be defined in `default.yaml`
 - No interactive UI
 
----
-
 > The project provides both interactive and batch inference modes, enabling flexible experimentation and reproducible results.
 
 ---
