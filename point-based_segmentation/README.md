@@ -123,6 +123,66 @@ Exit	q
 
 ---
 
+---
+
+## Code Overview
+
+This project is modularized into several components, each responsible for a specific part of the segmentation pipeline.
+
+### `main.py`
+
+- Entry point of the project
+- Parses command-line arguments
+- Switches between interactive mode and inference mode
+
+### `interactive.py`
+
+- Provides an interactive UI using OpenCV
+- Handles mouse input for foreground/background points
+- Controls the segmentation loop and user interaction
+
+### `inference.py`
+
+- Runs segmentation using predefined points from config
+- Handles the full pipeline: model → preprocessing → inference → saving outputs
+
+### `predictor.py`
+
+- Core SAM inference module
+- Converts point prompts into model inputs
+- Runs model inference and post-processes masks
+- Returns final binary mask and confidence score
+
+### `sam_wrapper/load_model.py`
+
+- Loads SAM model and processor from local checkpoint
+- Handles device selection (CPU / CUDA / MPS)
+
+### `utils/device.py`
+
+- Automatically selects available computation device
+
+### `utils/image_io.py`
+
+- Handles image loading and resizing
+- Ensures directories exist
+
+### `utils/points.py`
+
+- Validates point inputs
+- Scales points when resizing is applied
+- Converts points into SAM-compatible format
+
+### `utils/visualization.py`
+
+- Generates output visualizations:
+  - Mask
+  - Prompt image
+  - Overlay
+  - Combined panel
+
+---
+
 ## Pipeline
 
 ```mermaid
