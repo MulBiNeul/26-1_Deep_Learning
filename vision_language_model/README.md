@@ -107,19 +107,108 @@ If needed, you can set HF_TOKEN for faster downloads and higher rate limits.
 python -m src.main
 ```
 
-### Interactive Question Input
+### Interactive Question Input Example
 
 ```bash
 Question > What is happening in this image?
 ```
 
-### Inputs
+---
+
+## Inputs
 
 - Image
   - Stored in data/input/
   - Path is specified in configs/default.yaml
 - Question
   - Entered interactively through CLI
+
+## Outputs
+
+- Saved in data/output/
+  - result.txt → generated answer
+
+---
+
+## Code Overview
+
+### `main.py`
+
+Controls the overall execution flow of the program.
+
+- Loads config file
+- Initializes inference engine
+- Starts interactive loop
+
+---
+
+### `inference.py`
+
+Handles the end-to-end vision-language inference process.
+
+- Loads image
+- Loads Qwen VLM model
+- Receives user questions
+- Calls predictor
+- Prints and saves results
+
+---
+
+### `predictor.py`
+
+Performs vision-language inference.
+
+- Builds multimodal input (image + question)
+- Encodes input using processor
+- Runs model inference
+- Decodes generated answer
+
+---
+
+### `qwen_wrapper/load_model.py`
+
+Loads the Qwen Vision-Language Model.
+
+- Loads model from Hugging Face
+- Automatically downloads weights if needed
+- Sets device (CPU / CUDA / MPS)
+
+---
+
+### `utils/config.py`
+
+Loads configuration file.
+
+- Reads YAML config
+- Provides structured config dictionary
+
+---
+
+### `utils/device.py`
+
+Selects runtime device.
+
+- Supports auto detection
+- CUDA / MPS / CPU fallback
+
+---
+
+### `utils/image_io.py`
+
+Handles image loading and preprocessing.
+
+- Loads image from path
+- Converts to RGB
+- Resizes image to reduce memory usage
+
+---
+
+### `utils/text.py`
+
+Handles text processing and logging.
+
+- Cleans user input
+- Saves question-answer pairs
 
 ---
 
@@ -144,8 +233,3 @@ flowchart TD
 ```
 
 ---
-
-## Outputs
-
-- Saved in data/output/
-  - result.txt → generated answer

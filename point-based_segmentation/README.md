@@ -145,6 +145,14 @@ Exit	q
 
 ---
 
+## Outputs
+
+- Saved in data/output/:
+  - \*\_mask.png → binary mask <br>
+  - \*\_prompt.png → points visualization <br>
+  - \*\_overlay.png → segmentation overlay <br>
+  - \*\_panel.png → combined visualization <br>
+
 ---
 
 ## Code Overview
@@ -239,11 +247,3 @@ flowchart TD
 ```
 
 ---
-
-## Outputs
-
-- Saved in data/output/:
-  - \*\_mask.png → binary mask <br>
-  - \*\_prompt.png → points visualization <br>
-  - \*\_overlay.png → segmentation overlay <br>
-  - \*\_panel.png → combined visualization <br>

@@ -134,6 +134,11 @@ pen, laptop
 - Text Queries
   - Entered through CLI or interactive prompt
 
+## Outputs
+
+- Saved in data/output/
+  - result.jpg → detection result with bounding boxes and labels
+
 ---
 
 ## Code Overview
@@ -238,8 +243,3 @@ flowchart TD
 ```
 
 ---
-
-## Outputs
-
-- Saved in data/output/
-  - result.jpg → detection result with bounding boxes and labels
