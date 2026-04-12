@@ -101,11 +101,37 @@ python scripts/download_checkpoint.py
 
 ---
 
-## How to Run (Interactive Mode)
+## How to Run (Modes)
 
-```bash
-python -m src.main --config configs/default.yaml
-```
+This project supports two execution modes:
+
+### 1. Interactive Mode (Recommended)
+
+Allows users to click directly on the image to provide foreground/background prompts.
+
+    python -m src.main --mode interactive --config configs/default.yaml
+
+- Best for demonstration and experimentation
+- No need to manually edit coordinates
+- Real-time visual feedback
+
+---
+
+### 2. Inference Mode
+
+Runs segmentation using predefined points from the configuration file.
+
+    python -m src.main --mode inference --config configs/default.yaml
+
+- Useful for reproducible experiments
+- Points must be defined in `default.yaml`
+- No interactive UI
+
+---
+
+> The project provides both interactive and batch inference modes, enabling flexible experimentation and reproducible results.
+
+````
 
 ---
 
@@ -119,7 +145,7 @@ Run segmentation	Enter
 Reset points	r
 Save results	s
 Exit	q
-```
+````
 
 ---
 
