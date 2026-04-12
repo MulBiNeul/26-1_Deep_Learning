@@ -1,10 +1,13 @@
 model:
-  model_name: "owlv2"   # "owlv2" or "owlvit"
+  model_name: "owlv2" # "owlv2" or "owlvit"
   model_id: "google/owlv2-base-patch16"
   device: "auto"
 
 input:
   image_path: "data/input/sample.jpg"
+
+preprocess:
+  max_size: 1024
 
 thresholds:
   score_threshold: 0.18
