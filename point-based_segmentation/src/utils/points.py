@@ -1,28 +1,47 @@
 def validate_points_and_labels(points, labels):
+    """
+    Validate point coordinates and corresponding labels.
+
+    Args:
+        points (list): List of point coordinates in [x, y] format
+        labels (list): List of labels for each point (1 for foreground, 0 for background)
+
+    Raises:
+        ValueError: If points or labels are invalid
+    """
+
     if not isinstance(points, list) or len(points) == 0:
-        raise ValueError("points는 비어 있지 않은 리스트여야 합니다.")
+        raise ValueError("points must be a non-empty list.")
 
     if not isinstance(labels, list) or len(labels) == 0:
-        raise ValueError("labels는 비어 있지 않은 리스트여야 합니다.")
+        raise ValueError("labels must be a non-empty list.")
 
     if len(points) != len(labels):
-        raise ValueError("points 개수와 labels 개수가 일치해야 합니다.")
+        raise ValueError("The number of points and labels must match.")
 
-    for p in points:
-        if not isinstance(p, list) or len(p) != 2:
-            raise ValueError("각 point는 [x, y] 형식이어야 합니다.")
-        if not all(isinstance(v, (int, float)) for v in p):
-            raise ValueError("point 좌표는 숫자여야 합니다.")
+    for point in points:
+        if not isinstance(point, list) or len(point) != 2:
+            raise ValueError("Each point must be in [x, y] format.")
+        if not all(isinstance(value, (int, float)) for value in point):
+            raise ValueError("Point coordinates must be numeric values.")
 
-    for lb in labels:
-        if lb not in [0, 1]:
-            raise ValueError("label은 0(background) 또는 1(foreground)이어야 합니다.")
+    for label in labels:
+        if label not in [0, 1]:
+            raise ValueError("Each label must be 0 (background) or 1 (foreground).")
 
 
 def scale_points(points, scale):
     """
-    resize 비율에 맞게 point 좌표를 함께 변환
+    Scale point coordinates according to the image resize ratio.
+
+    Args:
+        points (list): List of point coordinates in [x, y] format
+        scale (float): Resize scale factor
+
+    Returns:
+        list: Scaled point coordinates
     """
+
     if scale == 1.0:
         return points
 
@@ -34,13 +53,25 @@ def scale_points(points, scale):
 
     return scaled_points
 
+
 def build_sam_inputs(points, labels):
-    validate_points_and_labels(points, labels)
     """
+    Convert points and labels into the format required by the SAM processor.
+
     SAM processor format:
-    input_points: [[[x1, y1], [x2, y2], ...]]
-    input_labels: [[1, 0, ...]]
+        input_points: [[[x1, y1], [x2, y2], ...]]
+        input_labels: [[1, 0, ...]]
+
+    Args:
+        points (list): List of point coordinates
+        labels (list): List of point labels
+
+    Returns:
+        tuple: Formatted input_points and input_labels
     """
+
+    validate_points_and_labels(points, labels)
+
     input_points = [points]
     input_labels = [labels]
 

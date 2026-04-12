@@ -5,8 +5,36 @@ from src.utils.points import build_sam_inputs
 
 
 def predict_mask(image, processor, model, device, points, labels):
+    """
+    Perform point-based segmentation using SAM.
+
+    Pipeline:
+        1. Convert points to SAM input format
+        2. Preprocess inputs with processor
+        3. Move inputs to device (with dtype handling)
+        4. Run model inference
+        5. Post-process masks to original image size
+        6. Select best mask and convert to binary
+
+    Args:
+        image (PIL.Image): Input image
+        processor: SAM processor
+        model: SAM model
+        device (str): Target device (cpu, cuda, mps)
+        points (list): List of point coordinates
+        labels (list): List of labels (1=foreground, 0=background)
+
+    Returns:
+        dict: {
+            "mask": np.ndarray (H, W),
+            "score": float
+        }
+    """
+
+    # Step 1: Build SAM input format
     input_points, input_labels = build_sam_inputs(points, labels)
 
+    # Step 2: Preprocess inputs
     inputs = processor(
         images=image,
         input_points=input_points,
@@ -17,48 +45,44 @@ def predict_mask(image, processor, model, device, points, labels):
     original_sizes = inputs["original_sizes"]
     reshaped_input_sizes = inputs["reshaped_input_sizes"]
 
+    # Step 3: Move to device with dtype fix (MPS compatibility)
     converted_inputs = {}
-    for k, v in inputs.items():
-        if torch.is_tensor(v):
-            if v.dtype == torch.float64:
-                v = v.float()
-            converted_inputs[k] = v.to(device)
+    for key, value in inputs.items():
+        if torch.is_tensor(value):
+            if value.dtype == torch.float64:
+                value = value.float()  # Convert to float32
+            converted_inputs[key] = value.to(device)
         else:
-            converted_inputs[k] = v
+            converted_inputs[key] = value
 
     inputs = converted_inputs
 
+    # Step 4: Run inference
     with torch.no_grad():
         outputs = model(
             **inputs,
             multimask_output=False
         )
 
+    # Step 5: Post-process masks to original size
     masks = processor.image_processor.post_process_masks(
         outputs.pred_masks.cpu(),
         original_sizes=original_sizes,
         reshaped_input_sizes=reshaped_input_sizes
     )
 
-    print("post_process_masks len:", len(masks))
-    print("post_process_masks[0].shape:", masks[0].shape)
-
-    mask_tensor = masks[0]
-
-    # 모든 singleton 차원 제거
-    mask_tensor = mask_tensor.squeeze()
-
-    print("squeezed mask shape:", mask_tensor.shape)
+    # Step 6: Extract and clean mask
+    mask_tensor = masks[0].squeeze()
 
     if mask_tensor.ndim != 2:
-        raise ValueError(f"예상하지 못한 mask shape: {mask_tensor.shape}")
+        raise ValueError(f"Unexpected mask shape: {mask_tensor.shape}")
 
-    score_tensor = outputs.iou_scores.squeeze()
-
+    # Convert to binary mask
     mask = mask_tensor.numpy()
     mask = (mask > 0).astype(np.uint8)
 
-    score = float(score_tensor.item())
+    # Extract score
+    score = float(outputs.iou_scores.squeeze().item())
 
     return {
         "mask": mask,

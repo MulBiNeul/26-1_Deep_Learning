@@ -5,18 +5,32 @@ from src.utils.device import get_device
 
 
 def load_sam_model(local_model_dir: str, requested_device: str = "auto"):
+    """
+    Load SAM model and processor from a local directory.
+
+    Args:
+        local_model_dir (str): Path to the saved SAM model directory
+        requested_device (str): Device preference ('auto', 'cuda', 'mps', 'cpu')
+
+    Returns:
+        processor: SAM processor
+        model: SAM model
+        device: selected device
+    """
+
     model_dir = Path(local_model_dir)
 
     if not model_dir.exists():
         raise FileNotFoundError(
-            f"모델 폴더를 찾을 수 없습니다: {model_dir}\n"
-            "먼저 `python scripts/download_checkpoint.py`를 실행하세요."
+            f"Model directory not found: {model_dir}\n"
+            "Please run `python scripts/download_checkpoint.py` first."
         )
 
     device = get_device(requested_device)
 
     processor = SamProcessor.from_pretrained(str(model_dir))
     model = SamModel.from_pretrained(str(model_dir))
+
     model.to(device)
     model.eval()
 

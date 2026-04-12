@@ -13,6 +13,20 @@ from src.utils.visualization import (
 
 
 def run_inference(config: dict):
+    """
+    Run point-based segmentation using SAM with a given configuration.
+
+    Pipeline:
+        1. Load model
+        2. Load image
+        3. (Optional) Resize image and scale points
+        4. Run SAM inference
+        5. Save results (mask, prompt, overlay, panel)
+
+    Args:
+        config (dict): Configuration dictionary loaded from YAML file
+    """
+
     model_dir = config["model"]["local_dir"]
     requested_device = config["runtime"]["device"]
 
@@ -32,20 +46,20 @@ def run_inference(config: dict):
 
     ensure_dir(output_dir)
 
-    print("[1/5] 모델 로드 중...")
+    print("[1/5] Loading SAM model...")
     processor, model, device = load_sam_model(model_dir, requested_device)
 
-    print(f"[2/5] 이미지 로드 중... ({image_path})")
+    print(f"[2/5] Loading image... ({image_path})")
     image = load_image(image_path)
 
     if resize_enabled:
-        print(f"[2-1/5] resize 적용 중... (long side -> {resize_size})")
+        print(f"[2-1/5] Applying resize (long side -> {resize_size})")
         image, scale = resize_image(image, resize_size)
         points = scale_points(points, scale)
-        print(f"resize scale: {scale:.4f}")
-        print(f"scaled points: {points}")
+        print(f"Resize scale: {scale:.4f}")
+        print(f"Scaled points: {points}")
 
-    print(f"[3/5] 추론 중... (device={device})")
+    print(f"[3/5] Running inference... (device={device})")
     result = predict_mask(
         image=image,
         processor=processor,
@@ -61,7 +75,7 @@ def run_inference(config: dict):
     overlay_path = Path(output_dir) / f"{image_stem}_overlay.png"
     panel_path = Path(output_dir) / f"{image_stem}_panel.png"
 
-    print("[4/5] 결과 저장 중...")
+    print("[4/5] Saving results...")
     if save_mask_flag:
         save_mask(result["mask"], str(mask_path))
 
@@ -78,12 +92,13 @@ def run_inference(config: dict):
             save_path=str(panel_path),
         )
 
-    print("[5/5] 완료")
-    print(f"best score: {result['score']:.4f}")
-    print(f"prompt saved: {prompt_path}")
+    print("[5/5] Done")
+    print(f"Best score: {result['score']:.4f}")
+    print(f"Prompt saved: {prompt_path}")
+
     if save_mask_flag:
-        print(f"mask saved: {mask_path}")
+        print(f"Mask saved: {mask_path}")
     if save_overlay_flag:
-        print(f"overlay saved: {overlay_path}")
+        print(f"Overlay saved: {overlay_path}")
     if save_panel_flag:
-        print(f"panel saved: {panel_path}")
+        print(f"Panel saved: {panel_path}")

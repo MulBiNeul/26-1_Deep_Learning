@@ -4,13 +4,21 @@ import matplotlib.pyplot as plt
 
 
 def save_mask(mask: np.ndarray, save_path: str):
+    """
+    Save a binary segmentation mask as an image.
+
+    Args:
+        mask (np.ndarray): Binary mask (H, W) or with singleton dimensions
+        save_path (str): Path to save the mask image
+    """
+
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
     mask = np.squeeze(mask)
 
     if mask.ndim != 2:
-        raise ValueError(f"save_mask에 전달된 mask shape가 잘못되었습니다: {mask.shape}")
+        raise ValueError(f"Invalid mask shape for saving: {mask.shape}")
 
     plt.figure(figsize=(8, 8))
     plt.imshow(mask, cmap="gray")
@@ -21,6 +29,16 @@ def save_mask(mask: np.ndarray, save_path: str):
 
 
 def save_prompt_image(image, points, labels, save_path: str):
+    """
+    Save an image with foreground/background points visualized.
+
+    Args:
+        image (PIL.Image): Input image
+        points (list): List of point coordinates
+        labels (list): List of labels (1=foreground, 0=background)
+        save_path (str): Path to save the visualization
+    """
+
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -29,8 +47,8 @@ def save_prompt_image(image, points, labels, save_path: str):
     plt.figure(figsize=(8, 8))
     plt.imshow(image_np)
 
-    for (x, y), lb in zip(points, labels):
-        if lb == 1:
+    for (x, y), label in zip(points, labels):
+        if label == 1:
             plt.scatter(
                 x, y,
                 s=100,
@@ -63,21 +81,28 @@ def save_prompt_image(image, points, labels, save_path: str):
 
 
 def save_overlay(image, mask: np.ndarray, save_path: str):
+    """
+    Save an overlay image with the segmentation mask applied.
+
+    Args:
+        image (PIL.Image): Input image
+        mask (np.ndarray): Binary mask
+        save_path (str): Path to save the overlay image
+    """
+
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
     mask = np.squeeze(mask)
 
     if mask.ndim != 2:
-        raise ValueError(f"save_overlay에 전달된 mask shape가 잘못되었습니다: {mask.shape}")
+        raise ValueError(f"Invalid mask shape for overlay: {mask.shape}")
 
     image_np = np.array(image)
 
     color_mask = np.zeros((mask.shape[0], mask.shape[1], 4), dtype=np.float32)
-    color_mask[..., 0] = 1.0
-    color_mask[..., 1] = 0.0
-    color_mask[..., 2] = 0.0
-    color_mask[..., 3] = mask * 0.45
+    color_mask[..., 0] = 1.0  # red channel
+    color_mask[..., 3] = mask * 0.45  # alpha
 
     plt.figure(figsize=(8, 8))
     plt.imshow(image_np)
@@ -89,6 +114,17 @@ def save_overlay(image, mask: np.ndarray, save_path: str):
 
 
 def save_three_panel_figure(original_image, prompt_image_path, overlay_image_path, save_path: str):
+    """
+    Save a combined visualization with three panels:
+    original image, prompt points, and segmentation overlay.
+
+    Args:
+        original_image (PIL.Image): Original image
+        prompt_image_path (str): Path to prompt visualization image
+        overlay_image_path (str): Path to overlay image
+        save_path (str): Path to save the combined figure
+    """
+
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
