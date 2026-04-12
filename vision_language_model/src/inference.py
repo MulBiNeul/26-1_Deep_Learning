@@ -66,6 +66,7 @@ class InferenceEngine:
 
             if self.config["output"]["save_text"]:
                 TextProcessor.save_text(
-                    text=answer,
-                    output_path=self.config["output"]["output_path"],
+                question=normalized_question,
+                answer=answer,
+                output_path=self.config["output"]["output_path"],
                 )
