@@ -138,7 +138,7 @@ pen, laptop
 
 ## Code Overview
 
-### 'main.py'
+### `main.py`
 
 Controls the overall execution flow of the program.
 
@@ -150,7 +150,7 @@ Controls the overall execution flow of the program.
 
 ---
 
-### 'inference.py'
+### `inference.py`
 
 Performs open-vocabulary detection using OWL models.
 
@@ -162,7 +162,7 @@ Performs open-vocabulary detection using OWL models.
 
 ---
 
-### 'predictor.py'
+### `predictor.py`
 
 Handles user input for text queries.
 
@@ -172,7 +172,7 @@ Handles user input for text queries.
 
 ---
 
-### 'owl_wrapper/load_model.py'
+### `owl_wrapper/load_model.py`
 
 Loads OWLv2 or OWL-ViT model from Hugging Face.
 
@@ -182,37 +182,37 @@ Loads OWLv2 or OWL-ViT model from Hugging Face.
 
 ---
 
-### 'utils/config.py'
+### `utils/config.py`
 
 Loads YAML configuration file.
 
 ---
 
-### 'utils/device.py'
+### `utils/device.py`
 
 Selects the appropriate device (CUDA / MPS / CPU).
 
 ---
 
-### 'utils/image_io.py'
+### `utils/image_io.py`
 
 Handles image loading, resizing, and saving.
 
 ---
 
-### 'utils/text.py'
+### `utils/text.py`
 
 Parses and processes text queries.
 
 ---
 
-### 'utils/visualization.py'
+### `utils/visualization.py`
 
 Draws bounding boxes and labels on the image.
 
 ---
 
-### 'scripts/download_checkpoint.py'
+### `scripts/download_checkpoint.py`
 
 Downloads and caches model checkpoints in advance.
 
