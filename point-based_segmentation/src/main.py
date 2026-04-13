@@ -1,70 +1,35 @@
-import torch
-import numpy as np
+import argparse
+import yaml
+from pathlib import Path
 
-from src.utils.points import build_sam_inputs
+from src.interactive import run_interactive
+from src.inference import run_inference
 
 
-def predict_mask(image, processor, model, device, points, labels):
-    input_points, input_labels = build_sam_inputs(points, labels)
+def load_config(config_path: str):
+    config_path = Path(config_path)
+    with open(config_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
-    inputs = processor(
-        images=image,
-        input_points=input_points,
-        input_labels=input_labels,
-        return_tensors="pt"
-    )
 
-    original_sizes = inputs["original_sizes"]
-    reshaped_input_sizes = inputs["reshaped_input_sizes"]
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, default="configs/default.yaml")
+    parser.add_argument("--mode", type=str, default="interactive",
+                        choices=["interactive", "inference"])
 
-    converted_inputs = {}
-    for k, v in inputs.items():
-        if torch.is_tensor(v):
-            if v.dtype == torch.float64:
-                v = v.float()
-            converted_inputs[k] = v.to(device)
-        else:
-            converted_inputs[k] = v
+    args = parser.parse_args()
 
-    inputs = converted_inputs
+    config = load_config(args.config)
 
-    with torch.no_grad():
-        outputs = model(
-            **inputs,
-            multimask_output=False
-        )
+    if args.mode == "interactive":
+        run_interactive(config)
+    else:
+        run_inference(config)
 
-    masks = processor.image_processor.post_process_masks(
-        outputs.pred_masks.cpu(),
-        original_sizes=original_sizes,
-        reshaped_input_sizes=reshaped_input_sizes
-    )
 
-    # print("post_process_masks len:", len(masks))
-    # print("post_process_masks[0].shape:", masks[0].shape)
+if __name__ == "__main__":
+    main()
 
-    mask_tensor = masks[0]
-
-    # 모든 singleton 차원 제거
-    mask_tensor = mask_tensor.squeeze()
-
-   #  print("squeezed mask shape:", mask_tensor.shape)
-
-    if mask_tensor.ndim != 2:
-        raise ValueError(f"예상하지 못한 mask shape: {mask_tensor.shape}")
-
-    score_tensor = outputs.iou_scores.squeeze()
-
-    mask = mask_tensor.numpy()
-    mask = (mask > 0).astype(np.uint8)
-
-    score = float(score_tensor.item())
-
-    return {
-        "mask": mask,
-        "score": score
-    }
-
-# run
-# python scripts/download_checkpoint.py
 # python -m src.main --mode interactive
+# python -m src.main --mode inference
