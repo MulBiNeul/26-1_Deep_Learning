@@ -10,7 +10,7 @@ runtime:
   top_p: 0.9
 
 input:
-  image_path: "data/input/sample.jpg"
+  image_path: "data/input/img.jpg"
 
 output:
   save_text: true
