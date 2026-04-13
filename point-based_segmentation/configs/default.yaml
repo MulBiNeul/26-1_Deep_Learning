@@ -5,7 +5,7 @@ runtime:
   device: auto
 
 input:
-  image_path: data/input/sample1.jpg
+  image_path: data/input/img.jpg
   resize:
     enabled: true
     size: 1024
@@ -19,4 +19,3 @@ output:
   save_mask: true
   save_overlay: true
   save_panel: true
-
