@@ -5,7 +5,7 @@ runtime:
   device: auto
 
 input:
-  image_path: data/input/img.jpg
+  image_path: data/input/sample1.jpg
   resize:
     enabled: true
     size: 1024
