@@ -38,12 +38,11 @@ hf_cache/
 # =========================
 # Data (keep structure only)
 # =========================
-data/input/*
 data/output/*
 
 # Keep folder structure
-# !data/input/.gitkeep
-# !data/output/.gitkeep
+!data/input/.gitkeep
+!data/output/.gitkeep
 
 # =========================
 # Logs / Outputs
