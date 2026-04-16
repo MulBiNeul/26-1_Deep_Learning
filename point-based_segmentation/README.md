@@ -1,4 +1,4 @@
-# README.md
+<img width="1461" height="298" alt="스크린샷 2026-04-16 오후 1 38 39" src="https://github.com/user-attachments/assets/42b3f9cf-30ba-44c7-9e0a-4fb230808d26" /># README.md
 
 ## Point-based Segmentation with SAM
 
@@ -146,18 +146,22 @@ Exit	q
 ```
 
 ---
-
+## Inputs
+- image
+<img width="1465" height="821" alt="스크린샷 2026-04-16 오후 1 40 58" src="https://github.com/user-attachments/assets/a28684c5-9e68-4794-a2c8-083634f15328" />
+---
 ## Outputs
 
 - Saved in data/output/:
   - \*\_mask.png → binary mask <br>
-  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_mask.png
+  <img width="599" height="337" alt="스크린샷 2026-04-16 오후 1 37 10" src="https://github.com/user-attachments/assets/86eb0572-1d70-4bb4-86c8-218fdda3b947" />
   - \*\_prompt.png → points visualization <br>
-  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_prompt.png
+  <img width="595" height="329" alt="스크린샷 2026-04-16 오후 1 37 46" src="https://github.com/user-attachments/assets/4869fa4d-54ba-41b8-bc2a-e30596668d8d" />
   - \*\_overlay.png → segmentation overlay <br>
-  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_overlay.png
+  <img width="600" height="333" alt="스크린샷 2026-04-16 오후 1 38 12" src="https://github.com/user-attachments/assets/561fa2d4-3dd2-4f4b-a6ea-49c5d22ed584" />
   - \*\_panel.png → combined visualization <br>
-  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_panel.png
+  <img width="1458" height="297" alt="스크린샷 2026-04-16 오후 1 39 03" src="https://github.com/user-attachments/assets/a569100c-9e16-4ecc-86ad-6fd2116b4737" />
+
 ---
 
 ## Code Overview
