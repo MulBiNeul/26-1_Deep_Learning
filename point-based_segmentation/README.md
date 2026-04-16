@@ -115,6 +115,8 @@ Allows users to click directly on the image to provide foreground/background pro
 - No need to manually edit coordinates
 - Real-time visual feedback
 
+<img width="1469" height="157" alt="스크린샷 2026-04-16 오후 1 33 36" src="https://github.com/user-attachments/assets/67a99607-2dec-422e-a79d-40aa1fb92b4a" />
+
 ---
 
 ### 2. Inference Mode
