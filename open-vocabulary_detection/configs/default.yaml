@@ -4,7 +4,7 @@ model:
   device: "auto"
 
 input:
-  image_path: "data/input/img.jpg"
+  image_path: "data/input/sample.jpg"
 
 preprocess:
   max_size: 1024
