@@ -151,7 +151,9 @@ Exit	q
 <img width="1465" height="821" alt="스크린샷 2026-04-16 오후 1 40 58" src="https://github.com/user-attachments/assets/a28684c5-9e68-4794-a2c8-083634f15328" />
 
 <br>
+
 ---
+
 ## Outputs
 
 - Saved in data/output/:
