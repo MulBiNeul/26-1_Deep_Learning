@@ -114,6 +114,9 @@ python src/main.py --config configs/default.yaml --text "pen, laptop"
 
 ### Interactive Text Input
 
+<img width="1468" height="194" alt="스크린샷 2026-04-16 오후 3 20 48" src="https://github.com/user-attachments/assets/bb6df3a6-9399-484b-933b-8a1d0a4a3e51" />
+
+
 ```bash
 python src/main.py --config configs/default.yaml
 ```
@@ -127,6 +130,7 @@ pen, laptop
 ---
 
 ## Inputs
+<img width="1332" height="751" alt="스크린샷 2026-04-16 오후 3 22 04" src="https://github.com/user-attachments/assets/706aebc4-c91c-487f-9bcf-378889ab1726" />
 
 - Image
   - Stored in data/input/
@@ -134,8 +138,9 @@ pen, laptop
 - Text Queries
   - Entered through CLI or interactive prompt
 
-## Outputs
 
+## Outputs
+<img width="1008" height="572" alt="스크린샷 2026-04-16 오후 3 22 36" src="https://github.com/user-attachments/assets/1e3213cf-c1a3-4f1e-b637-4e919dd8bb94" />
 - Saved in data/output/
   - result.jpg → detection result with bounding boxes and labels
 
