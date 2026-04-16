@@ -1,4 +1,4 @@
-<img width="1461" height="298" alt="스크린샷 2026-04-16 오후 1 38 39" src="https://github.com/user-attachments/assets/42b3f9cf-30ba-44c7-9e0a-4fb230808d26" /># README.md
+# README.md
 
 ## Point-based Segmentation with SAM
 
@@ -149,6 +149,7 @@ Exit	q
 ## Inputs
 - image
 <img width="1465" height="821" alt="스크린샷 2026-04-16 오후 1 40 58" src="https://github.com/user-attachments/assets/a28684c5-9e68-4794-a2c8-083634f15328" />
+
 <br>
 ---
 ## Outputs
