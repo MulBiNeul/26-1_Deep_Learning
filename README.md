@@ -1,7 +1,7 @@
 # 26-1 Deep Learning — Foundation Model Experiments
 
-This repository explores multiple **foundation models from Hugging Face** across different computer vision tasks.
-Each project was developed independently and later integrated into this unified repository.
+This repository is for Deep Learning Class in Korea University, exploring multiple **foundation models from Hugging Face**.
+Each project was developed independently.
 
 ---
 
@@ -112,6 +112,5 @@ This project focuses on:
 
 - All experiments are reproducible
 - Each module can be executed independently
-- Designed for demonstration and analysis
 
 ---
