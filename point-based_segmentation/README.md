@@ -151,10 +151,13 @@ Exit	q
 
 - Saved in data/output/:
   - \*\_mask.png → binary mask <br>
+  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_mask.png
   - \*\_prompt.png → points visualization <br>
+  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_prompt.png
   - \*\_overlay.png → segmentation overlay <br>
+  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_overlay.png
   - \*\_panel.png → combined visualization <br>
-
+  /Users/leehyunseung/Documents/GitHub/26-1_Deep_Learning/point-based_segmentation/data/output/sample1_panel.png
 ---
 
 ## Code Overview
