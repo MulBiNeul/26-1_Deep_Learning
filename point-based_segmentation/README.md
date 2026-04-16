@@ -163,20 +163,19 @@ Exit	q
 - Saved in data/output/:
   - \*\_mask.png → binary mask <br>
 
-  <img width="599" height="337" alt="스크린샷 2026-04-16 오후 1 37 10" src="https://github.com/user-attachments/assets/86eb0572-1d70-4bb4-86c8-218fdda3b947" />
-  <br>
+    <img width="599" height="337" alt="스크린샷 2026-04-16 오후 1 37 10" src="https://github.com/user-attachments/assets/86eb0572-1d70-4bb4-86c8-218fdda3b947" />
+
   - \*\_prompt.png → points visualization <br>
 
-  <img width="595" height="329" alt="스크린샷 2026-04-16 오후 1 37 46" src="https://github.com/user-attachments/assets/4869fa4d-54ba-41b8-bc2a-e30596668d8d" />
-  <br>
+    <img width="595" height="329" alt="스크린샷 2026-04-16 오후 1 37 46" src="https://github.com/user-attachments/assets/4869fa4d-54ba-41b8-bc2a-e30596668d8d" />
+
   - \*\_overlay.png → segmentation overlay <br>
 
-  <img width="600" height="333" alt="스크린샷 2026-04-16 오후 1 38 12" src="https://github.com/user-attachments/assets/561fa2d4-3dd2-4f4b-a6ea-49c5d22ed584" />
-  <br>
+    <img width="600" height="333" alt="스크린샷 2026-04-16 오후 1 38 12" src="https://github.com/user-attachments/assets/561fa2d4-3dd2-4f4b-a6ea-49c5d22ed584" />
+
   - \*\_panel.png → combined visualization <br>
 
-  <img width="1458" height="297" alt="스크린샷 2026-04-16 오후 1 39 03" src="https://github.com/user-attachments/assets/a569100c-9e16-4ecc-86ad-6fd2116b4737" />
-  <br>
+   <img width="1458" height="297" alt="스크린샷 2026-04-16 오후 1 39 03" src="https://github.com/user-attachments/assets/a569100c-9e16-4ecc-86ad-6fd2116b4737" />
 
 ---
 
