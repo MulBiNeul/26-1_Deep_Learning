@@ -117,6 +117,10 @@ Question > What is happening in this image?
 
 ## Inputs
 
+<img width="1459" height="815" alt="스크린샷 2026-04-16 오후 3 42 17" src="https://github.com/user-attachments/assets/e4980bf1-84e7-4730-b23a-a88e5db094b2" />
+<img width="1464" height="378" alt="스크린샷 2026-04-16 오후 3 42 38" src="https://github.com/user-attachments/assets/15307367-7c09-4f76-9c54-b291dad1dd41" />
+
+
 - Image
   - Stored in data/input/
   - Path is specified in configs/default.yaml
@@ -124,6 +128,9 @@ Question > What is happening in this image?
   - Entered interactively through CLI
 
 ## Outputs
+
+<img width="1345" height="403" alt="스크린샷 2026-04-16 오후 3 44 04" src="https://github.com/user-attachments/assets/5e6296c5-a2b2-4e09-8c63-2b2bc1c3a939" />
+
 
 - Saved in data/output/
   - result.txt → generated answer
