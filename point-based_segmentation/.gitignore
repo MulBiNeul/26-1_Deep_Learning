@@ -38,7 +38,6 @@ hf_cache/
 # =========================
 # Data (keep structure only)
 # =========================
-data/input/*
 data/output/*
 
 # Keep folder structure
