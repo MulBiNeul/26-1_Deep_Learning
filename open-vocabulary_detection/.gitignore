@@ -38,7 +38,7 @@ hf_cache/
 # =========================
 # Data (keep structure only)
 # =========================
-data/output/*
+# data/output/*
 
 # Keep folder structure
 !data/input/.gitkeep
@@ -49,7 +49,6 @@ data/output/*
 # =========================
 *.log
 logs/
-outputs/
 runs/
 
 # =========================
